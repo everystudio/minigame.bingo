@@ -8,4 +8,12 @@ public class AreaInfoView : MonoBehaviour
 
     public TextMeshProUGUI CurrentNumberText => currentNumberText;
     public TextMeshProUGUI SubInfoText => subInfoText;
+
+    private void Awake()
+    {
+        BingoManager.OnBingoNumber += (number) =>
+        {
+            currentNumberText.text = number.ToString();
+        };
+    }
 }
