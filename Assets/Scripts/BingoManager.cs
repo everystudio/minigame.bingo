@@ -52,6 +52,8 @@ public class BingoManager : MonoBehaviour
             cardAreaView.SetCardNumber(i, bingoSquareList[i].number);
             cardAreaView.SetCardClose(i);
         }
+        //DebugShowRowLine(11);
+        //DebugShowColLine(11);
     }
 
     public void Next()
@@ -79,6 +81,11 @@ public class BingoManager : MonoBehaviour
         cardAreaView.SetCardOpen(squareIndex);
         // 変数の更新
         bingoSquareList[squareIndex].isOpen = true;
+
+        if (IsBingo(squareIndex))
+        {
+            Debug.Log("Bingo!(縦横の列が)");
+        }
     }
 
     private int GetRandomNumber()
@@ -92,4 +99,111 @@ public class BingoManager : MonoBehaviour
         bingoNumberBuffer.RemoveAt(randomIndex);
         return bingoNumber;
     }
+
+    private void DebugShowRowLine(int index)
+    {
+        int row = index / 5;
+        for (int i = 0; i < 5; i++)
+        {
+            Debug.Log($"row:{row} col:{i} {bingoSquareList[row * 5 + i].number}");
+        }
+    }
+    private void DebugShowColLine(int index)
+    {
+        int col = index % 5;
+        for (int i = 0; i < 5; i++)
+        {
+            Debug.Log($"row:{i * 5} col:{col} {bingoSquareList[i * 5 + col].number}");
+        }
+    }
+    // 特定のsquareでBingoになっているかを判定する
+    public bool IsBingo(int squareIndex)
+    {
+        // まずはsquareIndexが有効かを確認する
+        if (squareIndex < 0 || squareIndex >= SQUARE_COUNT)
+        {
+            return false;
+        }
+        // そのsquareが開いているかを確認する
+        if (!bingoSquareList[squareIndex].isOpen)
+        {
+            return false;
+        }
+        // そのsquareがBingoになっているかを確認する
+        int row = squareIndex / 5;
+        int col = squareIndex % 5;
+        // 横の判定
+        bool isBingo = true;
+        for (int i = 0; i < 5; i++)
+        {
+            if (!bingoSquareList[row * 5 + i].isOpen)
+            {
+                isBingo = false;
+                break;
+            }
+        }
+        if (isBingo)
+        {
+            return true;
+        }
+
+        // 縦の判定
+        isBingo = true;
+        for (int i = 0; i < 5; i++)
+        {
+            if (!bingoSquareList[col + i * 5].isOpen)
+            {
+                isBingo = false;
+                break;
+            }
+        }
+        if (isBingo)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    /*
+
+
+
+
+        // 斜めの判定
+        if (squareIndex % 6 == 0)
+        {
+            isBingo = true;
+            for (int i = 0; i < 5; i++)
+            {
+                if (!bingoSquareList[i * 6].isOpen)
+                {
+                    isBingo = false;
+                    break;
+                }
+            }
+            if (isBingo)
+            {
+                return true;
+            }
+        }
+        if (squareIndex % 4 == 0)
+        {
+            isBingo = true;
+            for (int i = 0; i < 5; i++)
+            {
+                if (!bingoSquareList[i * 4 + 4].isOpen)
+                {
+                    isBingo = false;
+                    break;
+                }
+            }
+            if (isBingo)
+            {
+                return true;
+            }
+        }
+    */
+
+
+
 }
