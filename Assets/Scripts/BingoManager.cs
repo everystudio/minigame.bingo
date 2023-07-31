@@ -84,7 +84,7 @@ public class BingoManager : MonoBehaviour
 
         if (IsBingo(squareIndex))
         {
-            Debug.Log("Bingo!(縦横の列が)");
+            Debug.Log("Bingo!(Nextメソッドのログを修正)");
         }
     }
 
@@ -120,7 +120,7 @@ public class BingoManager : MonoBehaviour
     public bool IsBingo(int squareIndex)
     {
         // まずはsquareIndexが有効かを確認する
-        if (squareIndex < 0 || squareIndex >= SQUARE_COUNT)
+        if (squareIndex < 0 || SQUARE_COUNT <= squareIndex)
         {
             return false;
         }
@@ -159,6 +159,38 @@ public class BingoManager : MonoBehaviour
         }
         if (isBingo)
         {
+            return true;
+        }
+
+        // 右下がり：左上から右下の斜め判定
+        isBingo = true;
+        for (int i = 0; i < 5; i++)
+        {
+            if (!bingoSquareList[i * 6].isOpen)
+            {
+                isBingo = false;
+                break;
+            }
+        }
+        if (isBingo)
+        {
+            Debug.Log("右下がり：左上から右下の斜め判定");
+            return true;
+        }
+
+        // 右上がり：右上から左下の斜め判定
+        isBingo = true;
+        for (int i = 0; i < 5; i++)
+        {
+            if (!bingoSquareList[(i + 1) * 4].isOpen)
+            {
+                isBingo = false;
+                break;
+            }
+        }
+        if (isBingo)
+        {
+            Debug.Log("右上がり：右上から左下の斜め判定");
             return true;
         }
         return false;
