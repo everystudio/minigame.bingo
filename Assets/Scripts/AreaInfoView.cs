@@ -15,5 +15,10 @@ public class AreaInfoView : MonoBehaviour
         {
             currentNumberText.text = number.ToString();
         };
+        subInfoText.text = "";
+        BingoManager.OnChangeSubInfoText += (text) =>
+        {
+            subInfoText.text = text;
+        };
     }
 }

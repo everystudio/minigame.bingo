@@ -3677,7 +3677,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   closeImageColor: {r: 1, g: 1, b: 1, a: 1}
   closeTextColor: {r: 0, g: 0, b: 0, a: 1}
-  openImageColor: {r: 1, g: 0.920817, b: 0, a: 0}
+  openImageColor: {r: 1, g: 0.920817, b: 0, a: 0.5529412}
   openTextColor: {r: 0, g: 0, b: 0, a: 1}
   cardViews:
   - {fileID: 900631598}

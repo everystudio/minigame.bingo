@@ -16,6 +16,7 @@ public class BingoManager : MonoBehaviour
 
     private List<int> bingoNumberBuffer = new List<int>();
     public static System.Action<int> OnBingoNumber;
+    public static System.Action<string> OnChangeSubInfoText;
 
     private void GenerateBingoCard(int maxNumber)
     {
@@ -52,8 +53,7 @@ public class BingoManager : MonoBehaviour
             cardAreaView.SetCardNumber(i, bingoSquareList[i].number);
             cardAreaView.SetCardClose(i);
         }
-        //DebugShowRowLine(11);
-        //DebugShowColLine(11);
+        OnChangeSubInfoText?.Invoke("");
     }
 
     public void Next()
@@ -84,6 +84,7 @@ public class BingoManager : MonoBehaviour
 
         if (IsBingo(squareIndex))
         {
+            OnChangeSubInfoText?.Invoke("Bingo!");
             Debug.Log("Bingo!(Nextメソッドのログを修正)");
         }
     }
